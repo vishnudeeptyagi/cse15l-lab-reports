@@ -1,38 +1,109 @@
-# LAB 4
+# LAB 3
 
-## Step 1
-Start the Timer
+## Part 1 - Bugs
 
-## Step 2 Log in
-My course-specific account name character is mo. so I put in the command ```ssh cs15lfa23mo@ieng6.ucsd.edu```
-Which gives:
-![log-in](log-in.png)
+A failure-inducing input for the buggy program, as a JUnit test and any associated code:
+```
+public class ArrayExamplesTest {
+    @Test
+    public void testReversedMethodFailure() {
+        int[] input = {1, 2, 3, 4, 5};
+        int[] expected = {5, 4, 3, 2, 1}; // Expected reversed output
+        int[] result = ArrayExamples.reversed(input);
+        assertArrayEquals(expected, result);
+    }
+}
+```
 
-## Step 3 Clone
-Fork the lab from GitHub. Then clone the repo. To clone, copy the link to the repository and then run the command ```git clone https://github.com/vishnudeeptyagi/lab7.git``` 
-![clone2](clone2.png)
+An input that doesn’t induce a failure, as a JUnit test and any associated code:
+```
+public class ArrayExamplesTest {
+    @Test
+    public void testReversedMethodSuccess() {
+        int[] input = {7, 10, 3, 8};
+        int[] expected = {8, 3, 10, 7}; // Expected reversed output
+        int[] result = ArrayExamples.reversed(input);=
+        assertArrayEquals(expected, result);
+    }
+}
+```
 
-## Step 4 Testing
-First run the command ```cd lab7``` to enter that directory.
-Then run the command ```bash test.sh``` to compile and run the files in the directory.
-Here is the output: ![error](error.png)
+The symptom, as the output of running the tests (provide it as a screenshot of running JUnit with at least the two inputs above):
+![ss](ss.png)
 
-## Step 5 Rectification
-Enter the appropriate file by running ```vim ListExamples.java```
-Find the error by running ```/index1``` and then ```<Shift N>
-Then where 1 is, enter ```x``` and then enter ```1```
-Then enter ```2``` and press enter.
-Exit file now
+The bug, as the before-and-after code change required to fix it:
+Before:
+```
+// Bug in reverseInPlace method
+static void reverseInPlace(int[] arr) {
+    for(int i = 0; i < arr.length; i += 1) {
+        arr[i] = arr[arr.length - i - 1]; // Incorrect assignment, it overwrites elements incorrectly
+    }
+}
 
-## Step 6 Testing
-![test2](test2.png)
-so, no errors anymore. Rectification successful 
+// Bug in reversed method
+static int[] reversed(int[] arr) {
+    int[] newArray = new int[arr.length];
+    for(int i = 0; i < arr.length; i += 1) {
+        arr[i] = newArray[arr.length - i - 1]; // Incorrect assignment, it doesn't populate newArray correctly
+    }
+    return arr;
+}
+```
 
-## Step 7 Commit and push
-To commit, run ```git add``` and then run ```git commit -m "Committed"```
-Push changes by running ```git push```
+After:
+```
+// Fix for reverseInPlace method
+static void reverseInPlace(int[] arr) {
+    for(int i = 0; i < arr.length / 2; i++) {
+        int temp = arr[i];
+        arr[i] = arr[arr.length - i - 1];
+        arr[arr.length - i - 1] = temp;
+    }
+}
 
-Now you can see the changes on the repo:
-![Committed](Committed.png)
+// Fix for reversed method
+static int[] reversed(int[] arr) {
+    int[] newArray = new int[arr.length];
+    for(int i = 0; i < arr.length; i++) {
+        newArray[i] = arr[arr.length - i - 1];
+    }
+    return newArray;
+}
+```
+Why does the fix addresses the issue?
+The fix addresses the issues by correcting the assignments in both reverseInPlace and reversed methods. In reverseInPlace, a swapping technique is used to properly reverse the array elements. In reversed, the fixed implementation correctly populates the newArray with reversed elements from the input array, ensuring the correct reversed output.
 
-So we can see that the changes were made successfully and that the changes were pushed.
+
+## Part 2 - Researching Commands
+
+grep command
+
+Option 1: -E (extended regular expression)
+This option enables extended regular expressions for pattern matching.
+Example 1:
+Search for lines containing either "error" or "warning": ```grep -E "error|warning" ./technical/logfile.txt```
+Example 2:
+Search for lines that start with "success": ```grep -E "^success" ./technical/logfile.txt```
+
+Option 2: -o (only matching)
+This option displays only the matched parts of the lines.
+Example 1:
+Display only the email addresses in a file: ```grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}' ./technical/emailfile.txt```
+Example 2:
+Display only the filenames from a directory listing: ```ls -l ./technical/ | grep -oE '[^ ]+$'```
+
+Option 3: -c (count)
+This option displays the count of matched lines.
+Example 1:
+Count occurrences of "error" in a file: ```grep -c "error" ./technical/logfile.txt```
+Example 2:
+Count lines starting with "warning": ```grep -c "^warning" ./technical/logfile.txt```
+
+Option 4: -B (before context lines)
+This option displays lines before the matched line.
+Example 1:
+Display two lines before lines containing "error": ```grep -B 2 "error" ./technical/logfile.txt```
+Example 2:
+Display one line before lines starting with "warning": ```grep -B 1 "^warning" ./technical/logfile.txt```
+
