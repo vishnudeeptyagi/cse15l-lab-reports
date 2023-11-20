@@ -82,29 +82,29 @@ grep command
 Option 1: -E (extended regular expression)
 This option enables extended regular expressions for pattern matching.
 Example 1:
-Search for lines containing either "error" or "warning": grep -E "error|warning" ./technical/logfile.txt
+Search for lines containing either "error" or "warning": ```grep -E "error|warning" ./technical/logfile.txt```
 Example 2:
-Search for lines that start with "success": grep -E "^success" ./technical/logfile.txt
+Search for lines that start with "success": ```grep -E "^success" ./technical/logfile.txt```
 
 Option 2: -o (only matching)
 This option displays only the matched parts of the lines.
 Example 1:
-Display only the email addresses in a file: grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}' ./technical/emailfile.txt
+Display only the email addresses in a file: ```grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}' ./technical/emailfile.txt```
 Example 2:
-Display only the filenames from a directory listing: ls -l ./technical/ | grep -oE '[^ ]+$'
+Display only the filenames from a directory listing: ```ls -l ./technical/ | grep -oE '[^ ]+$'```
 
 Option 3: -c (count)
 This option displays the count of matched lines.
 Example 1:
-Count occurrences of "error" in a file: grep -c "error" ./technical/logfile.txt
+Count occurrences of "error" in a file: ```grep -c "error" ./technical/logfile.txt```
 Example 2:
-Count lines starting with "warning": grep -c "^warning" ./technical/logfile.txt
+Count lines starting with "warning": ```grep -c "^warning" ./technical/logfile.txt```
 
 Option 4: -B (before context lines)
 This option displays lines before the matched line.
 Example 1:
-Display two lines before lines containing "error": grep -B 2 "error" ./technical/logfile.txt
+Display two lines before lines containing "error": ```grep -B 2 "error" ./technical/logfile.txt```
 Example 2:
-Display one line before lines starting with "warning": grep -B 1 "^warning" ./technical/logfile.txt
+Display one line before lines starting with "warning": ```grep -B 1 "^warning" ./technical/logfile.txt```
 
 
