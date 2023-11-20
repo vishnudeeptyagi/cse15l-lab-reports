@@ -31,14 +31,24 @@ public class ArrayExamplesTest {
 }
 ```
 
-The symptom, as the output of running the tests (provide it as a screenshot of running JUnit with at least the two inputs above)
+The symptom, as the output of running the tests (provide it as a screenshot of running JUnit with at least the two inputs above):
+![ss](ss)
+
 The bug, as the before-and-after code change required to fix it:
 Before:
 ```
+// Bug in reverseInPlace method
+static void reverseInPlace(int[] arr) {
+    for(int i = 0; i < arr.length; i += 1) {
+        arr[i] = arr[arr.length - i - 1]; // Incorrect assignment, it overwrites elements incorrectly
+    }
+}
+
+// Bug in reversed method
 static int[] reversed(int[] arr) {
     int[] newArray = new int[arr.length];
     for(int i = 0; i < arr.length; i += 1) {
-        arr[i] = newArray[arr.length - i - 1]; // Bug here, incorrect assignment
+        arr[i] = newArray[arr.length - i - 1]; // Incorrect assignment, it doesn't populate newArray correctly
     }
     return arr;
 }
@@ -46,16 +56,25 @@ static int[] reversed(int[] arr) {
 
 After:
 ```
+// Fix for reverseInPlace method
+static void reverseInPlace(int[] arr) {
+    for(int i = 0; i < arr.length / 2; i++) {
+        int temp = arr[i];
+        arr[i] = arr[arr.length - i - 1];
+        arr[arr.length - i - 1] = temp;
+    }
+}
+
+// Fix for reversed method
 static int[] reversed(int[] arr) {
     int[] newArray = new int[arr.length];
-    for(int i = 0; i < arr.length; i += 1) {
-        newArray[i] = arr[arr.length - i - 1]; // Fixed the assignment
+    for(int i = 0; i < arr.length; i++) {
+        newArray[i] = arr[arr.length - i - 1];
     }
     return newArray;
 }
-
 ```
 Why does the fix addresses the issue?
-The bug was in the assignment of values in the reversed method. The fix swaps the assignment statements, correctly copying elements from the input array arr into the newArray in reverse order.
+The fix addresses the issues by correcting the assignments in both reverseInPlace and reversed methods. In reverseInPlace, a swapping technique is used to properly reverse the array elements. In reversed, the fixed implementation correctly populates the newArray with reversed elements from the input array, ensuring the correct reversed output.
 
 
