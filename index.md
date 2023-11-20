@@ -1,7 +1,11 @@
-# LAB 3
+# LAB 4
 
-## Part 1 - Bugs
+## Step 1
+Start the Timer
 
+## Step 2 Log in
+My course-specific account name character is mo. so I put in the command ``````
+Start the Timer
 A failure-inducing input for the buggy program, as a JUnit test and any associated code:
 ```
 public class ArrayExamplesTest {
