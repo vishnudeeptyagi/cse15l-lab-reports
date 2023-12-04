@@ -9,8 +9,8 @@ Which gives:
 ![log-in](log-in.png)
 
 ## Step 3 Clone
-Fork the lab from GitHub. Then clone the repo. To clone, copy the link to the repository and then run the command ```git clone git@github.com:vishnudeeptyagi/lab7.git``` 
-![clone2](clone2.png)
+Fork the lab from GitHub. Then clone the repo. To clone, copy the link to the repository and then run the command ```git git@github.com:vishnudeeptyagi/cse15l-lab-reports.git/lab7.git``` 
+![clone3](clone3.png)
 
 ## Step 4 Testing
 First run the command ```cd lab7``` to enter that directory.
