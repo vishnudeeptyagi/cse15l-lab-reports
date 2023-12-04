@@ -20,9 +20,10 @@ Here is the output: ![error](error.png)
 ## Step 5 Rectification
 Enter the appropriate file by running ```vim ListExamples.java```
 @@ -25,14 +25,14 @@ Then enter ```2``` and press enter.
-Exit file now
+Exit file now using  ```wq:```
 
 ## Step 6 Testing
+On terminal put ```vim ListExamples.java``` and then type ```bash test.sh``` to complie and run the file.
 ![test2](test2.png)
 so, no errors anymore. Rectification successful 
 
